@@ -58,6 +58,7 @@ jobs:
 
   server_update:
     name: Доставка изменений
+    needs: testing
     runs-on: ubuntu-latest
     steps:
       - name: Запуск скрипта обновления
