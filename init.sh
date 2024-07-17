@@ -13,6 +13,12 @@ echo Set environment variables
 
 export $(grep -v '^#' .env | xargs -d '\n')
 
+# Creating a database
+echo Creating a database
+
+sudo -u postgres psql -U postgres -d postgres -c "alter user postgres with password '${DB_PASSWORD}';"
+sudo -u postgres psql -U postgres -d postgres -c "create database ${DB_NAME};"
+
 # install python packages
 echo Install python packages
 
@@ -51,7 +57,7 @@ systemctl start gunicorn.service
 echo Aplying settings NGINX
 
 cp config/nginx/django_project.conf /etc/nginx/sites-available
-[ -e /etc/nginx/sites-enabled/django_project.conf ] && rm /etc/nginx/sites-enabled/default
+[ -e /etc/nginx/sites-enabled/default ] && rm /etc/nginx/sites-enabled/default
 [ -e /etc/nginx/sites-enabled/django_project.conf ] && rm /etc/nginx/sites-enabled/django_project.conf
 ln -s /etc/nginx/sites-available/django_project.conf /etc/nginx/sites-enabled
 systemctl restart nginx
