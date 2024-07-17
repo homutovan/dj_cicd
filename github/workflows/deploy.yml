@@ -1,0 +1,16 @@
+name: Django project deploy
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    steps:
+      - name: Доставка изменений
+       uses: appleboy/ssh-action@master
+       with:
+         host: ${{ secrets.HOST }}
+         username: ${{ secrets.USERNAME }}
+         password: ${{ secrets.PASSWORD }}
+         script: bash /opt/app/dj_cicd/update.sh
