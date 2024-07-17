@@ -5,8 +5,8 @@ echo Start initial script
 # install system packages
 echo Install system packages
 
-# apt update && apt upgrade
-# apt install -y postgresql nginx python3-venv
+apt update -y && apt upgrade -y
+apt install -y postgresql nginx python3-venv
 
 # set environment variables
 echo Set environment variables
@@ -14,11 +14,21 @@ echo Set environment variables
 export $(grep -v '^#' .env | xargs -d '\n')
 
 # install python packages
-# echo Install python packages
+echo Install python packages
 
-# python3 -m venv env
-# env/bin/python -m pip install --upgrade pip
-# env/bin/python -m pip install -r requirements.txt
+python3 -m venv env
+env/bin/python -m pip install --upgrade pip
+env/bin/python -m pip install -r requirements.txt
+
+# Collect static Web App
+echo Collect static Web App
+
+env/bin/python manage.py collectstatic
+
+# Aplying migrations
+echo Aplying migrations
+
+env/bin/python manage.py migrate
 
 # Create gunicorn service
 echo Create gunicorn service
@@ -41,6 +51,7 @@ systemctl start gunicorn.service
 echo Aplying settings NGINX
 
 cp config/nginx/django_project.conf /etc/nginx/sites-available
+[ -e /etc/nginx/sites-enabled/django_project.conf ] && rm /etc/nginx/sites-enabled/default
 [ -e /etc/nginx/sites-enabled/django_project.conf ] && rm /etc/nginx/sites-enabled/django_project.conf
 ln -s /etc/nginx/sites-available/django_project.conf /etc/nginx/sites-enabled
 systemctl restart nginx

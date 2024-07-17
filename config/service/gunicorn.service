@@ -5,8 +5,8 @@ After=network.target
 [Service]
 User=root
 Group=root
-WorkingDirectory=/home/homutovan/netology/lection/WEBPY/cicd
-ExecStart=/home/homutovan/netology/lection/WEBPY/cicd/env/bin/gunicorn \
+WorkingDirectory=/opt/app/dj_cicd
+ExecStart=/opt/app/dj_cicd/env/bin/gunicorn \
           --workers 3 \
           --bind unix:/run/gunicorn.sock \
           library.wsgi
