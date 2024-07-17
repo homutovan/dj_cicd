@@ -6,7 +6,7 @@ on:
 
 defaults:
   run:
-    working-directory: /opt/app/dj_cicd/
+    working-directory: /opt/app/dj_cicd
 
 jobs:
   server_update:
@@ -19,7 +19,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: bash update.sh
+          script: bash /opt/app/dj_cicd/update.sh
 
 # jobs:
 #   tests:
