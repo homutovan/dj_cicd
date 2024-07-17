@@ -11,7 +11,7 @@ apt install -y postgresql nginx python3-venv
 # set environment variables
 echo Set environment variables
 
-export $(grep -v '^#' .env | xargs -d '\n')
+export $(cat .env | xargs)
 
 # Creating a database
 echo Creating a database

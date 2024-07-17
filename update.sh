@@ -15,7 +15,7 @@ env/bin/python -m pip install -r requirements.txt
 # Collect static Web App
 echo Collect static Web App
 
-env/bin/python manage.py collectstatic
+env/bin/python manage.py collectstatic --noinput
 
 # Aplying migrations
 echo Aplying migrations
