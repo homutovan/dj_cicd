@@ -1,0 +1,14 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+[Service]
+User=root
+Group=root
+WorkingDirectory=/home/homutovan/netology/lection/WEBPY/cicd
+ExecStart=/home/homutovan/netology/lection/WEBPY/cicd/env/bin/gunicorn \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          library.wsgi
+[Install]
+WantedBy=multi-user.target
