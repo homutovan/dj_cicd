@@ -4,9 +4,9 @@ on:
   push:
     branches: [master]
 
-defaults:
-  run:
-    working-directory: /opt/app/dj_cicd
+# defaults:
+#   run:
+#     working-directory: /opt/app/dj_cicd
 
 jobs:
   server_update:
@@ -19,7 +19,9 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: bash /opt/app/dj_cicd/update.sh
+          script: |
+            cd /opt/app/dj_cicd/
+            bash ./update.sh
 
 # jobs:
 #   tests:
