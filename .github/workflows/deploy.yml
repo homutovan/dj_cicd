@@ -10,12 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Запуск скрипта обновления
+        working-directory: /opt/app/dj_cicd/
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: bash /opt/app/dj_cicd/update.sh
+          script: bash update.sh
 
 # jobs:
 #   tests:
